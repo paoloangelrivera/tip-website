@@ -32,3 +32,6 @@ footer img {
   height: auto;
   object-fit: contain;
 }
+
+/* Footer without logo */
+footer { justify-content: space-between; }
