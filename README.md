@@ -1,16 +1,8 @@
-# AT.ip — Web bilingüe ES / EN
+# AT.ip bilingual website
 
-Incluye:
-- Selector de idioma ES / EN en una sola página.
-- Logo de fondo oscuro en `assets/atip-logo-dark.png`.
-- Hero con ondas y cintas azules abstractas en lugar de círculos concéntricos.
-- Botones de contacto a WhatsApp.
+- Spanish / English language toggle
+- Full-width hero with integrated blue wave background (no graphic card)
+- Original AT.ip logo in the header
+- Footer without logo
 
-## Despliegue en Vercel
-
-Sube el contenido de esta carpeta a tu repositorio y conserva la estructura:
-
-- `index.html`
-- `styles.css`
-- `app.js`
-- `assets/atip-logo-dark.png`
+Upload the contents of this folder to your GitHub repository and let Vercel deploy automatically.
