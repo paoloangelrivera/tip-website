@@ -13,3 +13,22 @@ footer img {
   background: transparent !important;
   box-shadow: none;
 }
+
+/* v4: force a transparent logo in both header and footer */
+header .brand,
+header .brand img,
+footer,
+footer img {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+footer img {
+  display: block;
+  width: 200px;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
