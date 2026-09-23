@@ -35,3 +35,24 @@ footer img {
 
 /* Footer without logo */
 footer { justify-content: space-between; }
+
+
+/* Final full-width hero treatment: preserve every page section */
+.hero {
+  min-height: 700px;
+  width: 100vw;
+  max-width: none;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  background-color: #030609;
+}
+.hero:before {
+  background-size: cover;
+  background-position: center center;
+}
+.hero .copy {
+  width: min(100%, 650px);
+}
+@media (max-width: 760px) {
+  .hero { min-height: 650px; }
+}
