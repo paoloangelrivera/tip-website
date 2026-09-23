@@ -1,8 +1,8 @@
-# AT.ip Web v1
+# AT.ip bilingual website
 
-Web estática oscura y responsive para AT.ip.
+This version includes Spanish and English in the same website.
 
-- Logo incorporado desde el archivo entregado.
-- WhatsApp: +51 997 531 209.
-- Secciones: Inicio, Nosotros, Portafolio, Por qué AT.ip, Clientes y Contacto.
-- Antes de producción: validar autorización de logos, textos legales, privacidad y conexión del dominio.
+- The language button in the header switches between `ES` and `EN`.
+- The selected language is saved in the browser using localStorage.
+- Replace the files in your Vercel/GitHub project with this folder's contents.
+- Keep `index.html`, `styles.css`, `app.js`, and the `assets` folder in the same directory.
