@@ -74,3 +74,32 @@ body::before{background-image:url("assets/hero-waves.svg");background-position:c
 .footer-brand strong span{color:#218cff}
 .footer-brand small{display:block!important;justify-self:auto!important;margin-top:7px;color:#aab5c9!important;font-size:9px!important;letter-spacing:.075em;line-height:1.35;text-align:left!important;white-space:nowrap}
 @media(max-width:760px){body::before{background-position:center top;background-size:100% 760px;background-repeat:repeat-y;opacity:.5}.footer-brand{width:auto}}
+.brand{justify-content:flex-start;gap:9px;padding:2px 4px;overflow:visible}
+.brand-symbol{display:flex;align-items:center;justify-content:center;flex:none;width:43px;height:43px;color:#168cff;font-size:48px;font-weight:850;line-height:1;letter-spacing:-.12em;transform:skewX(-7deg)}
+.brand-copy{display:flex;min-width:0;flex-direction:column;align-items:flex-start;line-height:1}
+.brand-copy strong{color:#f5f8ff;font-size:31px;font-weight:800;letter-spacing:-.075em;white-space:nowrap}
+.brand-copy strong span{color:#218cff}
+.brand-copy small{display:block;margin-top:5px;color:#b8c6dc;font-size:7.5px;font-weight:650;letter-spacing:.045em;white-space:nowrap}
+@media(max-width:1050px){.brand{flex-basis:205px}.brand-symbol{width:34px;font-size:40px}.brand-copy strong{font-size:28px}.brand-copy small{font-size:6.5px;letter-spacing:.025em}}
+@media(max-width:760px){.brand{flex-basis:185px}.brand-symbol{width:35px;font-size:40px}.brand-copy strong{font-size:28px}.brand-copy small{font-size:6.2px}}
+/* Put the hero artwork on a page-wide layer behind every section. */
+body{isolation:isolate}
+body::before{z-index:0;inset:0;background-image:url("assets/hero-waves.svg");background-position:center top;background-size:100% 760px;background-repeat:repeat-y;opacity:.72}
+header{z-index:10}
+main,footer{position:relative;z-index:1}
+.hero{background:linear-gradient(110deg,rgba(3,9,20,.36),rgba(6,21,45,.18) 58%,rgba(4,17,42,.2))}
+.hero::before{display:none}
+.hero::after{background:linear-gradient(90deg,rgba(3,9,20,.26),transparent 74%)}
+.brand{flex:0 0 285px;justify-content:center;overflow:hidden}
+.brand img{display:block;width:100%;height:auto;max-height:66px;object-fit:contain}
+footer{grid-template-columns:245px 1fr auto;align-items:center;gap:28px;background:linear-gradient(180deg,rgba(3,6,9,.18),rgba(3,6,9,.56))}
+.footer-brand{display:flex;flex-direction:row;align-items:center;gap:12px;width:auto;max-width:none;opacity:1}
+.footer-symbol{display:flex;align-items:center;justify-content:center;flex:none;width:52px;height:52px;color:#168cff;font-size:57px;font-weight:850;line-height:1;letter-spacing:-.12em;transform:skewX(-7deg)}
+.footer-wordmark{display:flex;flex-direction:column;align-items:flex-start;line-height:1}
+.footer-wordmark strong{color:#f5f8ff;font-size:36px;font-weight:800;letter-spacing:-.075em;white-space:nowrap}
+.footer-wordmark strong span{color:#218cff}
+.footer-wordmark small{display:block;margin-top:6px;color:#b8c6dc;font-size:8px;letter-spacing:.045em;white-space:nowrap}
+footer nav{justify-content:center}
+footer>small{justify-self:end;text-align:right}
+@media(max-width:1050px){.brand{flex-basis:205px}.brand img{max-height:58px}footer{grid-template-columns:1fr;justify-items:center;gap:20px}footer>small{justify-self:center;text-align:center}}
+@media(max-width:760px){body::before{background-size:100% 760px;background-position:center top;opacity:.55}.brand{flex-basis:185px}.brand img{max-height:52px}footer{padding:30px 20px}footer nav{flex-wrap:wrap}.footer-brand{justify-content:center}}
