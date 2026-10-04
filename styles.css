@@ -64,3 +64,13 @@ footer nav a{color:var(--muted);white-space:nowrap;transition:color .2s ease}
 footer nav a:hover{color:#fff}
 footer small{justify-self:end;color:#8492a9;font-size:11px;text-align:right}
 @media(max-width:760px){body::before{background-position:60% center;background-size:auto 100%;opacity:.25}footer{grid-template-columns:1fr;justify-items:center;gap:20px;padding:30px 20px}footer nav{flex-wrap:wrap;justify-content:center;gap:12px 20px}footer small{justify-self:center;text-align:center}.footer-brand{width:165px}}
+
+/* Stronger, repeating wave pattern and a dependable text-based footer mark. */
+body::before{background-image:url("assets/hero-waves.svg");background-position:center top;background-size:100% 760px;background-repeat:repeat-y;opacity:.62}
+.hero{background:linear-gradient(110deg,rgba(3,9,20,.42),rgba(6,21,45,.24) 58%,rgba(4,17,42,.22))}
+.hero::after{background:linear-gradient(90deg,rgba(3,9,20,.25),transparent 70%)}
+.footer-brand{width:auto;max-width:none;display:flex;flex-direction:column;align-items:flex-start;gap:0;opacity:1}
+.footer-brand strong{display:block;color:#f5f8ff;font-size:34px;font-weight:800;letter-spacing:-.07em;line-height:1}
+.footer-brand strong span{color:#218cff}
+.footer-brand small{display:block!important;justify-self:auto!important;margin-top:7px;color:#aab5c9!important;font-size:9px!important;letter-spacing:.075em;line-height:1.35;text-align:left!important;white-space:nowrap}
+@media(max-width:760px){body::before{background-position:center top;background-size:100% 760px;background-repeat:repeat-y;opacity:.5}.footer-brand{width:auto}}
