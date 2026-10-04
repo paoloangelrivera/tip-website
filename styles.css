@@ -45,3 +45,22 @@ footer { justify-content: space-between; }
 #about .architecture{background:transparent!important;border:0!important;box-shadow:none!important;overflow:visible!important;border-radius:0!important}
 #about .architecture:before,#about .architecture:after{border-radius:50%!important;box-shadow:0 0 20px rgba(0,117,255,.12),0 22px 0 rgba(25,115,245,.16),0 44px 0 rgba(25,115,245,.1),0 66px 0 rgba(25,115,245,.06)!important}
 section{scroll-margin-top:110px}
+
+/* Site-wide wave artwork sits below every section and keeps text readable. */
+body{position:relative;isolation:isolate;background:radial-gradient(ellipse at 80% 8%,#071b3c 0,transparent 36%),#030609}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:url("assets/hero-waves.svg") center 42%/cover no-repeat;opacity:.34}
+main,footer{position:relative;z-index:1}
+.hero{background:linear-gradient(110deg,rgba(3,9,20,.74),rgba(6,21,45,.48) 58%,rgba(4,17,42,.46))}
+.hero::before{inset:0;background:none;opacity:0}
+.hero::after{inset:0;background:linear-gradient(90deg,rgba(3,9,20,.24),transparent 60%);pointer-events:none}
+.split{grid-template-columns:minmax(0,900px);gap:0}
+.architecture{display:none}
+footer{max-width:none;margin:0;padding:28px max(24px,calc((100vw - var(--max))/2 + 24px)) 34px;border-top:1px solid rgba(120,151,201,.24);background:linear-gradient(180deg,rgba(3,6,9,.28),rgba(3,6,9,.76));display:grid;grid-template-columns:minmax(130px,200px) 1fr auto;align-items:center;gap:30px}
+.footer-brand{display:inline-flex;align-items:center;max-width:200px;opacity:.9;transition:opacity .2s ease}
+.footer-brand:hover{opacity:1}
+.footer-brand img{display:block;width:100%;height:auto;max-height:58px;object-fit:contain}
+footer nav{display:flex;justify-content:center;gap:24px;font-size:13px;font-weight:600}
+footer nav a{color:var(--muted);white-space:nowrap;transition:color .2s ease}
+footer nav a:hover{color:#fff}
+footer small{justify-self:end;color:#8492a9;font-size:11px;text-align:right}
+@media(max-width:760px){body::before{background-position:60% center;background-size:auto 100%;opacity:.25}footer{grid-template-columns:1fr;justify-items:center;gap:20px;padding:30px 20px}footer nav{flex-wrap:wrap;justify-content:center;gap:12px 20px}footer small{justify-self:center;text-align:center}.footer-brand{width:165px}}

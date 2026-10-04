@@ -1,16 +1,15 @@
 # AT.ip — Web bilingüe ES / EN
 
-Incluye:
-- Selector de idioma ES / EN en una sola página.
-- Logo de fondo oscuro en `assets/atip-logo-dark.png`.
-- Hero con ondas y cintas azules abstractas en lugar de círculos concéntricos.
-- Botones de contacto a WhatsApp.
+Sitio web estático con selector de idioma español/inglés, ondas decorativas sutiles en toda la página y llamadas a WhatsApp.
 
-## Despliegue en Vercel
+## Archivos
 
-Sube el contenido de esta carpeta a tu repositorio y conserva la estructura:
+- `index.html` — estructura y contenido de la página.
+- `styles.css` — estilos adaptables para escritorio y móvil.
+- `app.js` — selector de idioma.
+- `assets/atip-logo-transparent-v4.png` — logo usado en encabezado y pie.
+- `assets/hero-waves.svg` — gráfico decorativo de ondas.
 
-- `index.html`
-- `styles.css`
-- `app.js`
-- `assets/atip-logo-dark.png`
+## Despliegue
+
+Publica el contenido de esta carpeta en tu hosting estático o repositorio de Vercel, conservando la carpeta `assets/` junto a los archivos HTML, CSS y JavaScript.
