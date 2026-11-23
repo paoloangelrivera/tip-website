@@ -6,10 +6,11 @@
   <meta name="description" content="AT.ip | Tecnología que conecta la estrategia con la ejecución">
   <title>AT.ip | Advanced Technology Integration Partners</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="chat-widget.css">
 </head>
 <body>
   <header class="site-header">
-    <a class="brand" href="#home" aria-label="AT.ip home"><img src="assets/atip-logo-dark.png" alt="AT.ip — Advanced Technology Integration Partners"></a>
+    <a class="brand" href="#home" aria-label="AT.ip home"><img src="assets/atip-logo-transparent-v4.png" alt="AT.ip — Advanced Technology Integration Partners"></a>
     <nav aria-label="Main navigation">
       <a href="#home" data-i18n="nav.home">Inicio</a>
       <a href="#about" data-i18n="nav.about">Nosotros</a>
@@ -35,7 +36,6 @@
           <a class="outline" href="#about" data-i18n="buttons.learn">Conoce más ↓</a>
         </div>
       </div>
-      <div class="globe" aria-hidden="true"></div>
     </section>
 
     <section id="about" class="split">
@@ -65,6 +65,7 @@
         <article><i>⬡</i><h3 data-i18n="portfolio.security.title">CIBERSEGURIDAD</h3><p data-i18n="portfolio.security.body">Identidad y acceso<br>Operaciones de seguridad<br>Riesgo y cumplimiento</p></article>
         <article><i>▱</i><h3 data-i18n="portfolio.apps.title">APLICACIONES</h3><p data-i18n="portfolio.apps.body">ERP / CRM<br>Aplicaciones de negocio<br>Integración y modernización<br>Nómina y Recursos Humanos</p></article>
         <article><i>⌘</i><h3 data-i18n="portfolio.infrastructure.title">INFRAESTRUCTURA</h3><p data-i18n="portfolio.infrastructure.body">Redes<br>Espacio de trabajo digital<br>Servicios gestionados</p></article>
+        <article><i>▦</i><h3 data-i18n="portfolio.industrial.title">INDUSTRIAL &amp; LOGISTICS</h3><p data-i18n="portfolio.industrial.body">Movilidad empresarial<br>RFID y trazabilidad<br>Tecnología para almacenes<br>Automatización<br>Identificación<br>Servicios gestionados</p></article>
       </div>
     </section>
 
@@ -95,11 +96,38 @@
   </main>
 
   <footer>
-    <img src="assets/atip-logo-dark.png" alt="AT.ip">
-    <div><a href="#home" data-i18n="nav.home">Inicio</a><a href="#about" data-i18n="nav.about">Nosotros</a><a href="#portfolio" data-i18n="nav.portfolio">Portafolio</a><a href="#contact" data-i18n="nav.contact">Contacto</a></div>
+    <a class="footer-brand" href="#home" aria-label="AT.ip — Inicio">
+      <img src="assets/atip-logo-transparent-v4.png" alt="AT.ip — Advanced Technology Integration Partners">
+    </a>
+    <nav aria-label="Navegación del pie de página">
+      <a href="#home" data-i18n="nav.home">Inicio</a>
+      <a href="#about" data-i18n="nav.about">Nosotros</a>
+      <a href="#portfolio" data-i18n="nav.portfolio">Portafolio</a>
+      <a href="#contact" data-i18n="nav.contact">Contacto</a>
+    </nav>
     <small data-i18n="footer">© 2026 AT.ip. Todos los derechos reservados.</small>
   </footer>
 
   <script src="app.js"></script>
+  <div class="chat-widget" id="atipChat">
+    <button class="chat-launcher" id="atipChatToggle" type="button" aria-expanded="false" aria-controls="atipChatPanel">
+      <span aria-hidden="true">✦</span><span id="atipChatLauncherLabel">Habla con AT.ip</span>
+    </button>
+    <section class="chat-panel" id="atipChatPanel" role="dialog" aria-labelledby="atipChatTitle" aria-modal="false" hidden>
+      <header class="chat-header">
+        <div><h2 id="atipChatTitle">Asistente AT.ip</h2><p id="atipChatSubtitle">¿En qué podemos ayudarte?</p></div>
+        <button class="chat-close" id="atipChatClose" type="button" aria-label="Cerrar chat">×</button>
+      </header>
+      <div class="chat-messages" id="atipChatMessages" aria-live="polite" aria-relevant="additions text"></div>
+      <form class="chat-form" id="atipChatForm">
+        <label class="sr-only" for="atipChatInput" id="atipChatInputLabel">Escribe tu consulta</label>
+        <textarea id="atipChatInput" rows="2" maxlength="2000" required></textarea>
+        <button type="submit" id="atipChatSend">Enviar</button>
+      </form>
+      <p class="chat-privacy" id="atipChatPrivacy">Tus mensajes se procesan en MongoDB Atlas y Groq; no guardamos el historial.</p>
+    </section>
+  </div>
+
+  <script src="chat-widget.js"></script>
 </body>
 </html>

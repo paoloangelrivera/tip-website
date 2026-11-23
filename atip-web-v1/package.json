@@ -1,0 +1,11 @@
+{
+  "name": "atip-bilingual-site",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "mongodb": "^6.13.0"
+  }
+}
