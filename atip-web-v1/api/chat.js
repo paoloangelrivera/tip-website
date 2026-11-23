@@ -132,7 +132,10 @@ module.exports = async function handler(req, res) {
     if (!answer) return json(res, 502, {error: "empty_model_response"});
     return json(res, 200, {answer, sources: makeSources(documents)});
   } catch (error) {
-    console.error("AT.ip RAG request failed", error?.name || "unknown_error");
+    const detail = String(error?.message || error || "unknown_error")
+      .replace(mongoUri, "[MONGODB_URI]")
+      .replace(groqKey, "[GROQ_API_KEY]");
+    console.error("AT.ip RAG request failed", error?.name || "unknown_error", detail);
     return json(res, 502, {error: "assistant_request_failed"});
   }
 };
