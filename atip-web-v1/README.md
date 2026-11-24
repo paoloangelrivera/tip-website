@@ -1,32 +1,24 @@
-# AT.ip — Web bilingüe ES / EN
+# AT.ip website — staffing and lead capture
 
-Sitio bilingüe con portafolio AT.ip, selector de idioma y un asistente RAG para consultas sobre Consultoría e Industrial & Logistics.
+## Included
+- Staffing portfolio card immediately before Industrial & Logistics.
+- WhatsApp contact buttons.
+- One bilingual “Habla con AT.ip” chat. Staffing requests switch into a structured intake in the same chat; general sales inquiries can also offer contact capture.
+- Lead details are saved only after the visitor reviews the summary and checks the consent box.
+- MongoDB collection: atip.lead_requests.
+- Optional email notification to servicioalcliente@atip.com.pe.
 
-## Archivos principales
+## Deploy to Vercel
+Set these variables in the project environment and redeploy:
+- MONGODB_URI: existing read-only connection used by the RAG chat.
+- MONGODB_WRITE_URI: connection for a dedicated MongoDB user with readWrite only on database atip.
+- MONGODB_DATABASE=atip
+- MONGODB_VECTOR_INDEX=knowledge_base_vector
+- GROQ_API_KEY
+- GROQ_MODEL=openai/gpt-oss-120b
 
-- `index.html`, `styles.css`, `app.js`: sitio y contenido ES/EN.
-- `chat-widget.js`, `chat-widget.css`: interfaz del chat.
-- `api/chat.js`: endpoint de Vercel que consulta MongoDB Atlas y genera respuestas con Groq.
-- `package.json`: driver oficial de MongoDB para el endpoint.
+The new database user should be separate from the RAG user. In Atlas Database Access, grant readWrite on database atip. Save its connection string in Vercel as the sensitive MONGODB_WRITE_URI, then redeploy.
 
-## Variables de entorno
+Optional email notification requires ZOHO_SMTP_HOST, ZOHO_SMTP_PORT=465, ZOHO_SMTP_USER=paolo@riverayrivera.net, and ZOHO_SMTP_APP_PASSWORD. If these are absent, the request is still saved in MongoDB, but no email alert is sent.
 
-Configura estas variables en Vercel (Project Settings → Environment Variables), sin guardarlas en el repositorio:
-
-- `MONGODB_URI`: cadena de conexión de Atlas. Usa un usuario de base de datos con permiso de lectura sobre `atip`.
-- `MONGODB_DATABASE`: `atip`.
-- `MONGODB_VECTOR_INDEX`: `knowledge_base_vector`.
-- `GROQ_API_KEY`: clave privada de Groq.
-- `GROQ_MODEL`: modelo de chat activo en tu cuenta de Groq; por ejemplo `llama-3.3-70b-versatile`.
-
-El sitio llama a `/api/chat` en el mismo dominio. No pongas claves en `app.js`, `chat-widget.js` ni en el HTML. La conversación no se guarda en esta versión; la pregunta se envía a Atlas para recuperar fragmentos y el contexto resultante se envía a Groq.
-
-Para desarrollo local, instala dependencias con `npm install`, configura esas variables en el entorno local y ejecuta con Vercel CLI (`npx vercel dev`).
-
-## MongoDB Atlas
-
-La función espera la colección `atip.knowledge_base` y el índice `knowledge_base_vector`, configurado con Automated Embedding sobre `content` y Voyage AI `voyage-4-lite`. MongoDB documenta Automated Embedding como Preview y recomienda no usarlo en producción mientras siga en Preview.
-
-## Publicación
-
-Despliega la carpeta en Vercel para habilitar el endpoint `/api/chat`; configura primero las variables de entorno en el proyecto de Vercel. No se ha desplegado esta versión.
+To review captured leads, open Atlas Data Explorer → database atip → collection lead_requests.

@@ -1,135 +1,32 @@
 (() => {
-  const panel = document.getElementById("atipChatPanel");
-  const toggle = document.getElementById("atipChatToggle");
-  const close = document.getElementById("atipChatClose");
-  const form = document.getElementById("atipChatForm");
-  const input = document.getElementById("atipChatInput");
-  const send = document.getElementById("atipChatSend");
-  const messages = document.getElementById("atipChatMessages");
-  const launcherLabel = document.getElementById("atipChatLauncherLabel");
-  const subtitle = document.getElementById("atipChatSubtitle");
-  const privacy = document.getElementById("atipChatPrivacy");
-  const inputLabel = document.getElementById("atipChatInputLabel");
-  const history = [];
-  let busy = false;
-  let welcomeMessage = null;
-
-  const copy = {
-    es: {
-      launcher: "Habla con AT.ip", title: "Asistente AT.ip", subtitle: "¿En qué podemos ayudarte?",
-      close: "Cerrar chat", placeholder: "Cuéntanos qué necesitas…", inputLabel: "Escribe tu consulta", send: "Enviar",
-      privacy: "Tus mensajes se procesan en MongoDB Atlas y Groq; no guardamos el historial.",
-      greeting: "Hola. Puedo orientarte sobre las capacidades de AT.ip y ayudarte a identificar el área adecuada. ¿Qué reto quieres resolver?",
-      thinking: "Estoy buscando información…", error: "No pude responder ahora. Inténtalo de nuevo en un momento.",
-      sourceHeading: "Fuentes consultadas", sourceKind: {consulting:"Consultoría", "industrial-logistics":"Industrial & Logistics"}
-    },
-    en: {
-      launcher: "Chat with AT.ip", title: "AT.ip Assistant", subtitle: "How can we help?",
-      close: "Close chat", placeholder: "Tell us what you need…", inputLabel: "Write your question", send: "Send",
-      privacy: "Your messages are processed by MongoDB Atlas and Groq; we do not store chat history.",
-      greeting: "Hello. I can explain AT.ip’s capabilities and help identify the right business area. What challenge are you working on?",
-      thinking: "Looking up information…", error: "I couldn’t answer right now. Please try again shortly.",
-      sourceHeading: "Sources consulted", sourceKind: {consulting:"Consulting", "industrial-logistics":"Industrial & Logistics"}
-    }
+  const panel=document.getElementById("atipChatPanel"), toggle=document.getElementById("atipChatToggle");
+  const close=document.getElementById("atipChatClose"), form=document.getElementById("atipChatForm");
+  const input=document.getElementById("atipChatInput"), send=document.getElementById("atipChatSend");
+  const messages=document.getElementById("atipChatMessages"), launcher=document.getElementById("atipChatLauncherLabel");
+  const subtitle=document.getElementById("atipChatSubtitle"), privacy=document.getElementById("atipChatPrivacy");
+  const inputLabel=document.getElementById("atipChatInputLabel"), history=[];
+  let busy=false, welcome=null, lead=null;
+  const c={
+    es:{launcher:"Habla con AT.ip",title:"Asistente AT.ip",subtitle:"¿En qué podemos ayudarte?",close:"Cerrar chat",placeholder:"Cuéntanos qué necesitas…",input:"Escribe tu consulta",send:"Enviar",privacy:"No guardamos el historial. Solo registramos tu solicitud si confirmas el envío.",greeting:"Hola. Puedo orientarte sobre las capacidades de AT.ip y ayudarte a identificar el área adecuada. ¿Qué reto quieres resolver?",thinking:"Estoy buscando información…",error:"No pude responder ahora. Inténtalo de nuevo en un momento.",offer:"¿Quieres que el equipo de AT.ip te contacte sobre esta solicitud?",offerButton:"Dejar mis datos",staffIntro:"Te haré unas preguntas para preparar tu requerimiento de Staffing.",generalIntro:"Cuéntame un poco más para conectar tu solicitud con el equipo adecuado.",consent:"Revisa el resumen. Al marcar la casilla autorizas a AT.ip a usar estos datos para atender tu solicitud.",consentLabel:"Autorizo el uso de mis datos para atender esta solicitud.",confirm:"Confirmar y enviar",cancel:"Cancelar",summary:"Resumen de la solicitud:",saving:"Guardando tu solicitud…",saved:"Solicitud registrada para revisión del equipo AT.ip.",savedNoEmail:"Solicitud guardada. No se pudo enviar el aviso al equipo; puedes contactarlo por WhatsApp.",saveError:"No se pudo guardar. Inténtalo de nuevo más tarde.",cancelled:"De acuerdo. No guardé tus datos.",skip:"Omitir",q:{service:"¿Sobre qué servicio o área quieres conversar?",need:"Describe brevemente qué necesitas.",family:"¿Qué familia de perfiles necesitas? (ERP, CRM, datos, tecnología u otra)",platform:"¿Qué plataforma necesitas? (SAP, Oracle, Salesforce u otra)",role:"¿Qué cargo o perfil necesitas?",skills:"¿Qué conocimientos, herramientas o tareas son indispensables?",seniority:"¿Qué nivel de experiencia buscas?",quantity:"¿Cuántos profesionales necesitas?",duration:"¿Por cuánto tiempo?",mode:"¿Qué modalidad: remoto, presencial o híbrido?",location:"¿En qué ciudad o sede?",start:"¿Cuándo debería empezar?",context:"¿Qué proyecto u objetivo cubriría este perfil?",company:"¿Cuál es el nombre de tu empresa?",name:"¿Cuál es tu nombre?",email:"¿Cuál es tu correo de trabajo?",phone:"¿Qué teléfono podemos usar para contactarte? (Opcional)"}},
+    en:{launcher:"Chat with AT.ip",title:"AT.ip Assistant",subtitle:"How can we help?",close:"Close chat",placeholder:"Tell us what you need…",input:"Write your question",send:"Send",privacy:"We do not store chat history. We only save your request if you confirm submission.",greeting:"Hello. I can explain AT.ip’s capabilities and help identify the right business area. What challenge are you working on?",thinking:"Looking up information…",error:"I couldn’t answer right now. Please try again shortly.",offer:"Would you like the AT.ip team to contact you about this request?",offerButton:"Leave my details",staffIntro:"I’ll ask a few questions to prepare your Staffing request.",generalIntro:"Tell me a little more so I can connect your request with the right team.",consent:"Review the summary. By checking the box, you authorize AT.ip to use these details to respond to your request.",consentLabel:"I authorize AT.ip to use my details to respond to this request.",confirm:"Confirm and send",cancel:"Cancel",summary:"Request summary:",saving:"Saving your request…",saved:"Your request has been recorded for the AT.ip team.",savedNoEmail:"Your request was saved, but the team alert could not be sent. You can contact them on WhatsApp.",saveError:"We couldn’t save your request. Please try again later.",cancelled:"Understood. I did not save your details.",skip:"Skip",q:{service:"Which service or area would you like to discuss?",need:"Briefly describe what you need.",family:"What type of professional do you need? (ERP, CRM, data, technology, or another area)",platform:"Which platform do you need? (SAP, Oracle, Salesforce, or another)",role:"What role or profile are you looking for?",skills:"Which skills, tools, or tasks are essential?",seniority:"What experience level are you looking for?",quantity:"How many professionals do you need?",duration:"For how long?",mode:"What work mode: remote, onsite, or hybrid?",location:"Which city or location?",start:"When should the assignment start?",context:"What project or goal will this role support?",company:"What is your company name?",name:"What is your name?",email:"What is your work email?",phone:"What phone number can we use? (Optional)"}}
   };
-
-  function language() {
-    return document.documentElement.lang === "en" ? "en" : "es";
-  }
-
-  function updateLanguage() {
-    const text = copy[language()];
-    launcherLabel.textContent = text.launcher;
-    document.getElementById("atipChatTitle").textContent = text.title;
-    subtitle.textContent = text.subtitle;
-    close.setAttribute("aria-label", text.close);
-    input.placeholder = text.placeholder;
-    inputLabel.textContent = text.inputLabel;
-    send.textContent = text.send;
-    privacy.textContent = text.privacy;
-    if (!history.length) {
-      if (welcomeMessage) welcomeMessage.textContent = text.greeting;
-      else welcomeMessage = addMessage(text.greeting, "assistant", [], false);
-    }
-  }
-
-  function addMessage(content, role, sources = [], save = true) {
-    const bubble = document.createElement("div");
-    bubble.className = `chat-message ${role}`;
-    bubble.textContent = content;
-    if (sources.length && role === "assistant") {
-      const sourceList = document.createElement("div");
-      sourceList.className = "chat-sources";
-      const heading = document.createElement("strong");
-      heading.textContent = copy[language()].sourceHeading;
-      sourceList.appendChild(heading);
-      sources.forEach((source, index) => {
-        const label = document.createElement(source.url ? "a" : "span");
-        label.textContent = `[${index + 1}] ${source.title} · ${copy[language()].sourceKind[source.ragId] || source.ragId}`;
-        if (source.url && /^https:\/\//i.test(source.url)) {
-          label.href = source.url;
-          label.target = "_blank";
-          label.rel = "noopener noreferrer";
-        }
-        sourceList.appendChild(label);
-      });
-      bubble.appendChild(sourceList);
-    }
-    messages.appendChild(bubble);
-    messages.scrollTop = messages.scrollHeight;
-    if (save) history.push({role, content});
-    return bubble;
-  }
-
-  function setOpen(open) {
-    panel.hidden = !open;
-    toggle.setAttribute("aria-expanded", String(open));
-    if (open) input.focus();
-    else toggle.focus();
-  }
-
-  toggle.addEventListener("click", () => setOpen(panel.hidden));
-  close.addEventListener("click", () => setOpen(false));
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && !panel.hidden) setOpen(false);
-  });
-  document.getElementById("languageToggle").addEventListener("click", updateLanguage);
-  input.addEventListener("keydown", (event) => {
-    if (event.key === "Enter" && !event.shiftKey) {
-      event.preventDefault();
-      form.requestSubmit();
-    }
-  });
-
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const message = input.value.trim();
-    if (!message || busy) return;
-    input.value = "";
-    addMessage(message, "user");
-    const priorHistory = history.slice(0, -1).slice(-6);
-    const typing = addMessage(copy[language()].thinking, "assistant typing", [], false);
-    busy = true;
-    send.disabled = true;
-    try {
-      const response = await fetch("/api/chat", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({message, language: language(), history: priorHistory})
-      });
-      const result = await response.json();
-      typing.remove();
-      if (!response.ok) throw new Error(result.error || "request_failed");
-      addMessage(result.answer, "assistant", Array.isArray(result.sources) ? result.sources : []);
-    } catch (_) {
-      typing.remove();
-      addMessage(copy[language()].error, "assistant");
-    } finally {
-      busy = false;
-      send.disabled = false;
-      input.focus();
-    }
-  });
-
-  updateLanguage();
+  const lang=()=>document.documentElement.lang==="en"?"en":"es";
+  const t=()=>c[lang()];
+  function add(text,role,save=true){const b=document.createElement("div");b.className="chat-message "+role;b.textContent=text;messages.appendChild(b);messages.scrollTop=messages.scrollHeight;if(save)history.push({role:role==="user"?"user":"assistant",content:text});return b;}
+  function update(){const x=t();launcher.textContent=x.launcher;document.getElementById("atipChatTitle").textContent=x.title;subtitle.textContent=x.subtitle;close.setAttribute("aria-label",x.close);input.placeholder=x.placeholder;inputLabel.textContent=x.input;send.textContent=x.send;privacy.textContent=x.privacy;if(!history.length){if(welcome)welcome.textContent=x.greeting;else welcome=add(x.greeting,"assistant",false);}}
+  function open(v){panel.hidden=!v;toggle.setAttribute("aria-expanded",String(v));if(v)input.focus();else toggle.focus();}
+  function isStaff(msg){return /\bstaffing\b|staff\s*augmentation|contratar\s+(personal|profesionales|consultores|recursos)|necesito\s+(un|una)\s+(consultor|perfil|profesional|recurso)|cotizar\s+(staffing|personal|recursos)/i.test(msg);}
+  function isSales(msg){return /cotiz|precio|comprar|adquirir|contratar|contactar|contacto|hablar\s+con|propuesta|seguimiento/i.test(msg);}
+  function steps(type){const q=t().q;return type==="staffing"?[["family",q.family],["platform",q.platform],["role",q.role],["skills",q.skills],["seniority",q.seniority],["quantity",q.quantity],["duration",q.duration],["mode",q.mode],["location",q.location],["start",q.start],["context",q.context],["company",q.company],["name",q.name],["email",q.email],["phone",q.phone]]:[["service",q.service],["need",q.need],["company",q.company],["name",q.name],["email",q.email],["phone",q.phone]];}
+  function begin(type,seed){lead={type:type,answers:{need:seed||""},items:steps(type),i:0,consent:false};add(type==="staffing"?t().staffIntro:t().generalIntro,"assistant");ask();}
+  function ask(){if(!lead)return;if(lead.i>=lead.items.length){summary();return;}const s=lead.items[lead.i];if(s[0]==="need"&&lead.answers.need){lead.i++;ask();return;}const b=add(s[1],"assistant");if(s[0]==="phone"){const skip=document.createElement("button");skip.type="button";skip.className="chat-action secondary";skip.textContent=t().skip;skip.onclick=()=>{lead.answers.phone="";lead.i++;ask();};b.appendChild(skip);}}
+  function summary(){const a=lead.answers, fields=lead.items.map(x=>x[0]).filter(k=>a[k]).map(k=>k+": "+a[k]);add(t().summary+"\n"+fields.join("\n"),"assistant");lead.consent=true;const b=add(t().consent,"assistant");const label=document.createElement("label");label.className="chat-consent";const box=document.createElement("input");box.type="checkbox";const span=document.createElement("span");span.textContent=t().consentLabel;label.append(box,span);b.appendChild(label);const ok=document.createElement("button");ok.type="button";ok.className="chat-action";ok.textContent=t().confirm;ok.disabled=true;box.onchange=()=>ok.disabled=!box.checked;ok.onclick=save;b.appendChild(ok);const no=document.createElement("button");no.type="button";no.className="chat-action secondary";no.textContent=t().cancel;no.onclick=()=>{lead=null;add(t().cancelled,"assistant");};b.appendChild(no);}
+  function answerLead(v){if(!lead)return;if(lead.consent){if(/^(s[ií]|yes|acepto|autorizo)$/i.test(v)){save();}else{lead=null;add(t().cancelled,"assistant");}return;}const s=lead.items[lead.i];if(!s)return;lead.answers[s[0]]=v.trim();lead.i++;ask();}
+  async function save(){if(!lead||busy)return;busy=true;send.disabled=true;const wait=add(t().saving,"assistant typing",false),a=lead.answers;const body={type:lead.type,language:lang(),consent:true,contact:{name:a.name,company:a.company,email:a.email,phone:a.phone||""},service:lead.type==="staffing"?"Staffing":a.service,need:a.need||a.context||"",staffing:lead.type==="staffing"?{profileFamily:a.family,platform:a.platform,role:a.role,skills:a.skills,seniority:a.seniority,quantity:a.quantity,duration:a.duration,workMode:a.mode,location:a.location,start:a.start,context:a.context}:undefined};try{const r=await fetch("/api/lead-request",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});const result=await r.json().catch(()=>({}));wait.remove();if(!r.ok)throw new Error(result.error||"save_failed");lead=null;add(result.notified===false?t().savedNoEmail:t().saved,"assistant");}catch(_){wait.remove();add(t().saveError,"assistant");}finally{busy=false;send.disabled=false;input.focus();}}
+  toggle.addEventListener("click",()=>open(panel.hidden));close.addEventListener("click",()=>open(false));document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!panel.hidden)open(false);});document.getElementById("languageToggle").addEventListener("click",update);
+  document.querySelectorAll("[data-start-staffing]").forEach(b=>b.addEventListener("click",()=>{open(true);begin("staffing","");}));
+  input.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();form.requestSubmit();}});
+  form.addEventListener("submit",async e=>{e.preventDefault();const msg=input.value.trim();if(!msg||busy)return;input.value="";add(msg,"user");if(lead){answerLead(msg);return;}if(isStaff(msg)){begin("staffing",msg);return;}const prior=history.slice(0,-1).slice(-6),typing=add(t().thinking,"assistant typing",false);busy=true;send.disabled=true;try{const r=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message:msg,language:lang(),history:prior})});const result=await r.json();typing.remove();if(!r.ok)throw new Error(result.error||"request_failed");add(result.answer,"assistant");if(isSales(msg)){const b=add(t().offer,"assistant");const button=document.createElement("button");button.type="button";button.className="chat-action";button.textContent=t().offerButton;button.onclick=()=>begin("general",msg);b.appendChild(button);}}catch(_){typing.remove();add(t().error,"assistant");}finally{busy=false;send.disabled=false;input.focus();}});
+  update();
 })();
+

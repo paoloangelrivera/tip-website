@@ -64,3 +64,5 @@ footer nav a{color:var(--muted);white-space:nowrap;transition:color .2s ease}
 footer nav a:hover{color:#fff}
 footer small{justify-self:end;color:#8492a9;font-size:11px;text-align:right}
 @media(max-width:760px){body::before{background-position:60% center;background-size:auto 100%;opacity:.25}footer{grid-template-columns:1fr;justify-items:center;gap:20px;padding:30px 20px}footer nav{flex-wrap:wrap;justify-content:center;gap:12px 20px}footer small{justify-self:center;text-align:center}.footer-brand{width:165px}}
+/* Staffing CTA and WhatsApp contact buttons */
+.whatsapp{background:#25D366!important;color:#062b16!important;border:1px solid #25D366!important;box-shadow:0 8px 24px rgba(37,211,102,.22)}.whatsapp:hover{filter:brightness(1.08)}.staffing-card{border-color:rgba(37,211,102,.34)!important}.staffing-cta{display:inline-flex;align-items:center;justify-content:center;margin-top:8px;padding:10px 15px;border:0;border-radius:999px;background:#1684ff;color:#fff;font:700 13px/1.2 sans-serif;cursor:pointer}.staffing-cta:hover{filter:brightness(1.1)}
