@@ -4,7 +4,7 @@
 - Staffing portfolio card immediately before Industrial & Logistics.
 - WhatsApp contact buttons.
 - One bilingual “Habla con AT.ip” chat. Staffing requests switch into a structured intake in the same chat; general sales inquiries can also offer contact capture.
-- Lead details are saved only after the visitor reviews the summary and checks the consent box.
+- If a visitor explicitly asks to be contacted, the chat asks for their name and work email, saves the request to MongoDB, and replies with a brief confirmation. Staffing requests keep the detailed intake and consent step.
 - MongoDB collection: atip.lead_requests.
 - Optional email notification to servicioalcliente@atip.com.pe.
 

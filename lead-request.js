@@ -51,7 +51,7 @@ module.exports = async function handler(req, res) {
     email: clean(contact.email, 254).toLowerCase(),
     phone: clean(contact.phone, 60)
   };
-  if (!cleanContact.name || !cleanContact.company || !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(cleanContact.email)) {
+  if (!cleanContact.name || (body.type === "staffing" && !cleanContact.company) || !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(cleanContact.email)) {
     return reply(res, 422, {error:"valid_contact_required"});
   }
   const request = {
