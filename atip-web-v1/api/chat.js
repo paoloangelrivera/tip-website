@@ -43,9 +43,7 @@ function getMongoClient(uri) {
 }
 
 function retrievedContext(documents) {
-  return documents.map(doc => doc.content || "").filter(Boolean).join("
-
-");
+  return documents.map(doc => doc.content || "").filter(Boolean).join("\n\n");
 }
 
 function makeSources(documents) {
