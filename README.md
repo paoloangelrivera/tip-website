@@ -1,15 +1,24 @@
-# AT.ip — Web bilingüe ES / EN
+# AT.ip website — staffing and lead capture
 
-Sitio web estático con selector de idioma español/inglés, ondas decorativas sutiles en toda la página y llamadas a WhatsApp.
+## Included
+- Staffing portfolio card immediately before Industrial & Logistics.
+- WhatsApp contact buttons.
+- One bilingual “Habla con AT.ip” chat. Staffing requests switch into a structured intake in the same chat; general sales inquiries can also offer contact capture.
+- Lead details are saved only after the visitor reviews the summary and checks the consent box.
+- MongoDB collection: atip.lead_requests.
+- Optional email notification to servicioalcliente@atip.com.pe.
 
-## Archivos
+## Deploy to Vercel
+Set these variables in the project environment and redeploy:
+- MONGODB_URI: existing read-only connection used by the RAG chat.
+- MONGODB_WRITE_URI: connection for a dedicated MongoDB user with readWrite only on database atip.
+- MONGODB_DATABASE=atip
+- MONGODB_VECTOR_INDEX=knowledge_base_vector
+- GROQ_API_KEY
+- GROQ_MODEL=openai/gpt-oss-120b
 
-- `index.html` — estructura y contenido de la página.
-- `styles.css` — estilos adaptables para escritorio y móvil.
-- `app.js` — selector de idioma.
-- `assets/atip-logo-transparent-v4.png` — logo usado en encabezado y pie.
-- `assets/hero-waves.svg` — gráfico decorativo de ondas.
+The new database user should be separate from the RAG user. In Atlas Database Access, grant readWrite on database atip. Save its connection string in Vercel as the sensitive MONGODB_WRITE_URI, then redeploy.
 
-## Despliegue
+Optional email notification requires ZOHO_SMTP_HOST, ZOHO_SMTP_PORT=465, ZOHO_SMTP_USER=paolo@riverayrivera.net, and ZOHO_SMTP_APP_PASSWORD. If these are absent, the request is still saved in MongoDB, but no email alert is sent.
 
-Publica el contenido de esta carpeta en tu hosting estático o repositorio de Vercel, conservando la carpeta `assets/` junto a los archivos HTML, CSS y JavaScript.
+To review captured leads, open Atlas Data Explorer → database atip → collection lead_requests.
