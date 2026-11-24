@@ -43,16 +43,9 @@ function getMongoClient(uri) {
 }
 
 function retrievedContext(documents) {
-  return documents.map((doc, index) => {
-    const source = [
-      `Source ${index + 1}`,
-      `business area: ${doc.rag_id || "unspecified"}`,
-      `title: ${doc.source_title || "Untitled source"}`,
-      doc.source_url ? `URL: ${doc.source_url}` : "internal AT.ip source",
-      `evidence status: ${doc.evidence_status || "not specified"}`
-    ].join(" | ");
-    return `[${index + 1}] ${source}\n${doc.content || ""}`;
-  }).join("\n\n");
+  return documents.map(doc => doc.content || "").filter(Boolean).join("
+
+");
 }
 
 function makeSources(documents) {
